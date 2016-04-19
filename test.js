@@ -7,4 +7,10 @@ describe('Array', function() {
 			expect([1,2,3].indexOf(3)).to.equal(2);
 		});
 	});
+	describe('should know what is equal', function() {
+		it('should know hello is hello', function() {
+			var hello = "hello";
+			expect(hello).to.equal("hello");
+		});
+	});
 });
