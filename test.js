@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 describe("Test node server on startup", function() {
 	var server;
 	
-	beforeEach(function(done) {
+	beforeEach(function() {
 		server = require('./app');
 	});
 
