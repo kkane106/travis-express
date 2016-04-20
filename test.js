@@ -13,10 +13,9 @@ describe("Test node server on startup", function() {
 			.expect(200, done);
 	});
 
-	it('responds with json to api request', function(done) {
+	it('responds to api request', function(done) {
 		request(server)
 			.get('/api/todos')
-			.expect('Content-Type', /json/)
 			.expect(200, done);
 	});
 
