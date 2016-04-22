@@ -1,6 +1,32 @@
 extends layout
 
 block content
+  script(type="text/javascript").
+    function deleteTodo(e) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('delete', '/api/todos/' + e.id);
+      xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 && xhr.status < 400) {
+          var message = xhr.responseText;
+          var row = document.getElementById(e.id)
+            .parentNode.parentNode;
+          row.parentNode.removeChild(row);
+          document.getElementById('message').innerHTML = message;
+        }
+      }
+      xhr.send(null);
+
+    }
+  #message
   h1= title
   p Welcome to #{title}
   h3 BUILD DEPLOYS TO HEROKU!
+  table
+    each todo in todos
+      tr
+        td #{todo.title}
+        td
+          a(href="/#{todo._id}/edit")
+            button edit
+        td 
+          button(id="#{todo._id}" onclick="deleteTodo(this)") delete

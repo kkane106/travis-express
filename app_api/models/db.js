@@ -5,34 +5,32 @@ if (process.env.NODE_ENV === 'production') {
 }
 mongoose.connect(dbLocation);
 
-// CONNECTION EVENTS
-mongoose.connection.on('connected', function () {
-  console.log('Mongoose connected to ' + dbLocation);
+// CONNECTION EVENT LOGS
+// Disconnected
+mongoose.connection.on('disconnected', function(){
+  console.log('Mongoose has disconnected from: ' + dbLocation);
 });
-mongoose.connection.on('error',function (err) {
-  console.log('Mongoose connection error: ' + err);
+// Error
+mongoose.connection.on('error', function(err) {
+  console.log('Mongoose connection has failed due to error: ' + err);
 });
-mongoose.connection.on('disconnected', function () {
-  console.log('Mongoose disconnected');
+// Connected
+mongoose.connection.on('connected', function() {
+  console.log('Mongoose connected to: ' + dbLocation);
 });
 
-// CAPTURE APP TERMINATION / RESTART EVENTS
-// To be called when process is restarted or terminated
-gracefulShutdown = function (msg, callback) {
-  mongoose.connection.close(function () {
-    console.log('Mongoose disconnected through ' + msg);
-    callback();
-  });
-};
-// For nodemon restarts
+// TERMINATION / EVENT LOGGING
+// Nodemon restarts
 process.once('SIGUSR2', function () {
-  gracefulShutdown('nodemon restart', function () {
+  mongoose.connection.close(function() {
+    console.log('Mongoose disconnected by nodemon restart');
     process.kill(process.pid, 'SIGUSR2');
   });
 });
-// For app termination
+// Application termination (ctrl + c)
 process.on('SIGINT', function() {
-  gracefulShutdown('app termination', function () {
+  mongoose.connection.close(function() {
+    console.log('Mongoose disconnected by Signal Interrupt');
     process.exit(0);
   });
 });
