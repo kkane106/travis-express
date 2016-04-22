@@ -30,7 +30,8 @@ module.exports.show = function(req,res) {
 		.exec(function(err,todo) {
 			if(err) {
 				console.error(err);
-				res.sendStatus(500);
+				res.status(500);
+				res.send(err.name);
 			}
 			res.send(todo);
 		});
