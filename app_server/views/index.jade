@@ -22,11 +22,14 @@ block content
   p Welcome to #{title}
   h3 BUILD DEPLOYS TO HEROKU!
   table
-    each todo in todos
-      tr
-        td #{todo.title}
-        td
-          a(href="/#{todo._id}/edit")
-            button edit
-        td 
-          button(id="#{todo._id}" onclick="deleteTodo(this)") delete
+    if todos.length
+      each todo in todos
+        tr
+          td #{todo.title}
+          td
+            a(href="/#{todo._id}/edit")
+              button edit
+          td 
+            button(id="#{todo._id}" onclick="deleteTodo(this)") delete
+    else
+      h3 You have not todos!

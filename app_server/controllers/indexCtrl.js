@@ -6,7 +6,11 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports.index = function(req, res, next) {
 	request(rootURI + '/api/todos', function (err, response, body) {
-		res.render('index', { title: 'Express', todos: JSON.parse(body) });
+		if (body) {
+			res.render('index', { title: 'Express', todos: JSON.parse(body) });
+		} else {
+			res.render('index', {title: 'Express'})
+		}
 	});
 };
 
