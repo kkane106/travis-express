@@ -1,0 +1,27 @@
+extends layout
+
+block content
+	script(type='text/javascript').
+		onload = function() {
+			document.newForm.submit
+				.addEventListener('click', createTodo);
+		}
+
+		function createTodo(e) {
+			e.preventDefault();
+			var todo = {
+				title : e.target.parentNode.title.value
+				};
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', '/api/todos');
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState == 4 && xhr.status < 400) {
+					window.location.replace('/' + JSON.parse(xhr.responseText)._id);
+				}
+			}
+			xhr.send(JSON.stringify(todo));
+		}
+	form(action='/api/todos',method='POST', name='newForm')
+		input(type='text' placeholder='Title' name='title')
+		input(type='submit' value='Create Todo' name='submit')

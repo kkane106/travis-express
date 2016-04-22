@@ -1,0 +1,29 @@
+extends layout
+
+block content
+	script(type='text/javascript').
+		onload = function() {
+			document.updateForm.submit
+				.addEventListener('click', updateTodo);
+		}
+
+		function updateTodo(e) {
+			e.preventDefault();
+			var todo = {
+				id : e.target.parentNode.id.value,
+				title : e.target.parentNode.title.value
+				};
+			var xhr = new XMLHttpRequest();
+			xhr.open('PUT', '/api/todos/' + e.target.parentNode.id.value);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState == 4 && xhr.status < 400) {
+					window.location.replace('/' + JSON.parse(xhr.responseText)._id);
+				}
+			}
+			xhr.send(JSON.stringify(todo));
+		}
+	form(action='/api/todos/#{todo._id}' method='put' name='updateForm')
+		input(type='hidden' value='#{todo._id}' name='id')
+		input(type='text' value='#{todo.title}' name='title')
+		input(type='submit' value='Update Todo' name='submit')
