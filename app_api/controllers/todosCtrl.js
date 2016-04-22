@@ -32,7 +32,7 @@ module.exports.show = function(req,res) {
 		.exec(function(err,todo) {
 			if(err) {
 				console.error(err);
-				res.status(500);
+				res.status(404);
 				res.send(err.name);
 			}
 			res.send(todo);

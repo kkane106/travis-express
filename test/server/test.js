@@ -3,28 +3,22 @@ var request = require('supertest');
 var utils = require('../utils');
 var mongoose = require('mongoose');
 
-describe("Test node server on startup", function() {
+describe("Test Todo API", function() {
 	var server;
 	
 	beforeEach(function() {
 		server = require('../../app');
 	});
 
-	it('routes to index at /', function(done) {
-		request(server)
-			.get('/')
-			.expect(200, done);
-	});
-
-	it('responds to api request', function(done) {
+	it('#index -> returns 200', function(done) {
 		request(server)
 			.get('/api/todos')
 			.expect(200, done);
 	});
 
-	it('responds 404 if not found', function(done) {
+	it('#show -> returns 404 if ID is not found', function(done) {
 		request(server)
-			.get('/impossibleroute')
+			.get('/api/todos/badrequest')
 			.expect(404, done);
 	});
 });
