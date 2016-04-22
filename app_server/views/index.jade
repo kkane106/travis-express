@@ -17,10 +17,10 @@ block content
       xhr.send(null);
 
     }
-  #message
+  #message 
   h1= title
-  p Welcome to #{title}
-  h3 BUILD DEPLOYS TO HEROKU!
+  a(href="/new")
+    button Create a new todo
   table
     if todos.length
       each todo in todos

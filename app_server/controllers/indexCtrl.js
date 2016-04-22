@@ -9,7 +9,7 @@ module.exports.index = function(req, res, next) {
 		if (err) {
 			res.sendStatus(500);
 		} else {
-			res.render('index', { title: 'Express', todos: JSON.parse(body) });
+			res.render('index', { title: 'Todo', todos: JSON.parse(body) });
 		}
 	});
 };
