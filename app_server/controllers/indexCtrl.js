@@ -1,11 +1,11 @@
 var request = require('request');
-var rootURI = 'http://localhost:3000';
+var rootURI = 'http://localhost:3000/';
 if (process.env.NODE_ENV === 'production') {
 	rootURI = process.env.HEROKU_URL;
 }
 
 module.exports.index = function(req, res, next) {
-	request(rootURI + '/api/todos', function (err, response, body) {
+	request(rootURI + 'api/todos', function (err, response, body) {
 		if (err) {
 			res.sendStatus(500);
 		} else {
@@ -19,7 +19,7 @@ module.exports.new = function(req,res) {
 };
 
 module.exports.edit = function(req,res) {
-	request(rootURI + '/api/todos/' + req.params.id, 
+	request(rootURI + 'api/todos/' + req.params.id, 
 		function(err,response,body) {
 		var todo = JSON.parse(body);
 		res.render('edit', { todo : todo });
@@ -27,7 +27,7 @@ module.exports.edit = function(req,res) {
 };
 
 module.exports.show = function(req,res) {
-	request(rootURI + '/api/todos/' +req.params.id, 
+	request(rootURI + 'api/todos/' +req.params.id, 
 		function(err,response,body) {
 			/* 
 				If Mongoose cannot find the ID (resulting in a 'CastError')
