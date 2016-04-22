@@ -6,6 +6,9 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports.index = function(req, res, next) {
 	request(rootURI + '/api/todos', function (err, response, body) {
+		if (err) {
+			res.sendStatus(500);
+		}
 		if (body) {
 			res.render('index', { title: 'Express', todos: JSON.parse(body) });
 		} else {
@@ -29,6 +32,9 @@ module.exports.edit = function(req,res) {
 module.exports.show = function(req,res) {
 	request(rootURI + '/api/todos/' +req.params.id, 
 		function(err,response,body) {
+			if (err) {
+				res.sendStatus(404);
+			}
 			var todo = JSON.parse(body);
 			res.render('show', { todo : todo });
 	});
