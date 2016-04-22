@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var request = require('supertest');
+var utils = require('../utils');
 var mongoose = require('mongoose');
 
 describe("Test node server on startup", function() {

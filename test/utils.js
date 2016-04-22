@@ -21,8 +21,8 @@ beforeEach(function(done) {
 	}
 });
 
-afterEach(function(done) {
-	mongoose.disconnect();
-	return done();
-});
+// afterEach(function(done) {
+// 	mongoose.disconnect();
+// 	return done();
+// });
 

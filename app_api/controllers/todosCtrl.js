@@ -9,6 +9,7 @@ module.exports.index = function(req,res) {
 				res.status(404)
 				res.send("NOT FOUND");
 			}
+			res.status(200);
 			res.send(todos);
 	});
 };
@@ -20,6 +21,7 @@ module.exports.create = function(req,res) {
 			console.error(err);
 			res.sendStatus(500)
 		}
+		res.status(201);
 		res.send(todo);
 	});
 };
