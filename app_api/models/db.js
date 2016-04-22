@@ -4,6 +4,8 @@ if (process.env.NODE_ENV === 'production') {
 	dbLocation = process.env.MONGODB_URI;
 } else if (process.env.NODE_ENV === 'test') {
   dbLocation = 'mongodb://localhost/todoTest'
+} else if (process.env.NODE_ENV === 'devTest') {
+  dbLocation = process.env.TESTDB
 }
 mongoose.connect(dbLocation);
 
@@ -45,4 +47,6 @@ process.on('SIGTERM', function() {
 
 require('./todos');
 
+// Export db location (primarily for tests)
 module.exports.db = dbLocation;
+
