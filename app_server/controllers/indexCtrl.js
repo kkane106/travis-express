@@ -8,8 +8,6 @@ module.exports.index = function(req, res, next) {
 	request(rootURI + '/api/todos', function (err, response, body) {
 		if (err) {
 			res.sendStatus(500);
-		} else if (!body) {
-			res.render('index', {title: 'Express'})
 		} else {
 			res.render('index', { title: 'Express', todos: JSON.parse(body) });
 		}

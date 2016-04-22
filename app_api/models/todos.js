@@ -5,3 +5,5 @@ var todoSchema = new mongoose.Schema({
 });
 
 mongoose.model('Todo', todoSchema);
+
+module.exports.Todo = mongoose.model('Todo');

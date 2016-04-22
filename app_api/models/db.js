@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var dbLocation = 'mongodb://localhost/heroku';
 if (process.env.NODE_ENV === 'production') {
 	dbLocation = process.env.MONGODB_URI;
+} else if (process.env.NODE_ENV === 'test') {
+  dbLocation = 'mongodb://localhost/todoTest'
 }
 mongoose.connect(dbLocation);
 
@@ -42,3 +44,5 @@ process.on('SIGTERM', function() {
 });
 
 require('./todos');
+
+module.exports.db = dbLocation;
